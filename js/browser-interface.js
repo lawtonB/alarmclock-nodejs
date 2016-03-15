@@ -1,7 +1,22 @@
 var moment = require('moment');
+
+
 $(document).ready(function() {
-  $("#time").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
+
+  (function update_time(){
+      var now = moment().format('h:mm:ss');
+      $('#time').text(now);
+      setTimeout(update_time, 1000);
+  })();
+
 $("#time-button").click(function(){
-  $('.time-body').text("You set the alarm for:" + $("#input-time").val());
+  var alarmTime = $("#input-time").val();
+  $('.time-body').text("You set the alarm for:" + alarmTime);
+
+  var $ins = $('#time, #input-time').on(function() {
+    if ($('#time').val() == $('#input-time')) {
+      alert("alarm activated");
+    }
+  });
 });
 });
